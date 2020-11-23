@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, ScrollView, Button } from 'react-native'
+import { ScrollView, Button } from 'react-native'
 import firebase from '../database/firebase'
 import { ListItem, Avatar } from 'react-native-elements'
 
@@ -22,6 +22,12 @@ const UserList = (props) => {
         })
     }, [])
 
+    const createTitleAvatar = name => {
+        let initials = name.match(/\b\w/g) || []
+        initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase()
+        return initials
+    }
+
     return (
         <ScrollView>
             <Button title="Create User" onPress={() => props.navigation.navigate("CreateUserScreen")} />
@@ -30,7 +36,7 @@ const UserList = (props) => {
                 users.map(user =>
                     <ListItem key={user.id} bottomDivider onPress={() => props.navigation.navigate("UserDetailScreen", { userId: user.id })}>
                         <ListItem.Chevron />
-                        <Avatar rounded source={{ uri: user.img }} />
+                        <Avatar rounded title={createTitleAvatar(user.name)} activeOpacity={0.7} />
                         <ListItem.Content>
                             <ListItem.Title>{user.name}</ListItem.Title>
                             <ListItem.Subtitle>{user.email}</ListItem.Subtitle>

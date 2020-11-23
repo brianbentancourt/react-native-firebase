@@ -48,7 +48,7 @@ const CreateUserScreen = (props) => {
                 <TextInput placeholder="Phone user" onChangeText={(value)=> handleChangeText('phone',  value)} />
             </View>
             <View>
-                <Button disabled={loading} title={loading ? "Saving..." : "Save user"} onPress={saveNewUser} />
+                <Button disabled={loading} title={loading ? "Saving..." : "Save User"} onPress={saveNewUser} />
             </View>
         </ScrollView>
     )
