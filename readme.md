@@ -7,3 +7,6 @@ https://expo.io
 
 **React-navigation**
 https://reactnavigation.org/docs/getting-started
+
+**React Native Elements**
+https://reactnativeelements.com/docs

@@ -7,7 +7,8 @@ const CreateUserScreen = (props) => {
     const [state, setState] = useState({
         name: '',
         email: '',
-        phone: ''
+        phone: '',
+        img: 'https://upload.wikimedia.org/wikipedia/commons/f/f4/User_Avatar_2.png'
     })
 
     const handleChangeText = (name, value) => setState({...state, [name] : value})
