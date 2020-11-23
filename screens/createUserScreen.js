@@ -3,6 +3,7 @@ import { View, Button, TextInput, ScrollView, StyleSheet } from 'react-native'
 import firebase from '../database/firebase'
 
 const CreateUserScreen = (props) => {
+    const [loading, setLoading] = useState(false)
     const [state, setState] = useState({
         name: '',
         email: '',
@@ -19,9 +20,18 @@ const CreateUserScreen = (props) => {
         }else if(!state.phone){
             alert('Please provide a phone')
         }else{
-            await firebase.db.collection('users').add(state)
-            alert('saved')
-            props.navigation.navigate('UsersList')
+            setLoading(true)
+             firebase.db.collection('users').add(state)
+            .then(()=>{
+                setLoading(false)
+                alert('saved')
+                props.navigation.navigate('UsersList')
+            })
+            .catch(error => {
+                setLoading(false)
+                alert(error.message)
+            })
+            
         }
     }
 
@@ -37,7 +47,7 @@ const CreateUserScreen = (props) => {
                 <TextInput placeholder="Phone user" onChangeText={(value)=> handleChangeText('phone',  value)} />
             </View>
             <View>
-                <Button title="Save user" onPress={saveNewUser} />
+                <Button disabled={loading} title={loading ? "Saving..." : "Save user"} onPress={saveNewUser} />
             </View>
         </ScrollView>
     )
